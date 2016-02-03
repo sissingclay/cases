@@ -26,6 +26,9 @@ them to ES5. We can install it, and save it to our package.json’s devDependenc
 
 ```sudo npm install -g webpack```
 
+Need to have gulp installed globally to.
+```npm install -g gulp```
+
 Then install all the dependencies
 
 ```npm install```
