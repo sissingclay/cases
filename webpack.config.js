@@ -14,7 +14,18 @@ module.exports = {
     // externals let you tell webpack about external dependencies
     // that shouldn't be resolved by webpack.
     externals: [],
+    eslint: {
+        configFile: './.eslintrc',
+        failOnWarning: false
+    },
     module: {
+        preLoaders: [
+            {
+                test: /\.js$/,
+                loader: "eslint-loader",
+                exclude: /node_modules/
+            }
+        ],
         loaders: [
             // babel loader, testing for files that have a .js extension
             // (except for files in our node_modules folder!).

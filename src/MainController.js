@@ -6,27 +6,20 @@
 class MainController {
 
     constructor($http) {
-
-        this.text   = 'It warming here :-)';
-        this.$http  = $http;
+        this.text = 'It warming here :-)';
+        this.$http = $http;
         this.getData();
-
     }
 
     itsGoingToChange(test) {
-        console.log('data', test);
+        this.tests = test;
     }
 
     getData() {
-
         this.$http.get('http://jsonplaceholder.typicode.com/users').then(response => {
-
             this.context = response.data;
-
-        }, function(error) {
-
-            console.log('error', error);
-
+        }, function (error) {
+            this.error = error;
         });
     }
 }
