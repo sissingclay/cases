@@ -32,3 +32,11 @@ Need to have gulp installed globally to.
 Then install all the dependencies
 
 ```npm install```
+
+To run webpack
+
+```webpack```
+
+Run webpack in dev
+
+```webpack --progress --colors --watch```
