@@ -1,8 +1,3 @@
-/**
- * Created by claysissing on 03/02/2016.
- */
-'use strict';
-
 class MainController {
 
     constructor($http) {
