@@ -4,13 +4,13 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
-    entry: './src/index.js',
+    entry: './src/js/index.js',
     // output tells webpack where to put the bundle it creates
 
     output: {
         libraryTarget: 'umd',
         // the destination file name
-        filename: './lib/app.js'
+        filename: './lib/js/app.js'
     },
 
     devtool: 'source-map',
@@ -38,11 +38,6 @@ module.exports = {
     module: {
 
         preLoaders: [
-            {
-                test: /\.js$/,
-                loader: "eslint-loader",
-                exclude: /node_modules/
-            },
             {
                 test: /\s[a|c]ss$/,
                 exclude: /node_modules/,

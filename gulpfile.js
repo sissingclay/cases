@@ -9,10 +9,20 @@ var sourcemaps  = require( "gulp-sourcemaps" );
 var rename      = require( "gulp-rename" );
 var uglify      = require( "gulp-uglify" );
 
-gulp.task( "build", function() {
-    return gulp.src( ["src/index.js"] )
+gulp.task( "build:js", function() {
+    return gulp.src( ["src/js/index.js"] )
         .pipe( webpack( require( "./webpack.config.js" ) ) )
         .pipe( gulp.dest( "./lib" ) );
+});
+
+gulp.task( "html", function() {
+    return gulp.src( ["src/html/index.html"] )
+        .pipe( gulp.dest( "./lib" ) );
+});
+
+gulp.task( "css", function() {
+    return gulp.src( ["src/css/styles.css"] )
+        .pipe( gulp.dest( "./lib/css" ) );
 });
 
 gulp.task('serve', function () {
@@ -21,4 +31,9 @@ gulp.task('serve', function () {
             baseDir: './lib'
         }
     });
+
+    gulp.watch("src/html/index.html", ["html"]);
+    gulp.watch("src/css/styles.css", ["css"]);
 });
+
+gulp.task( "default", ["html", "css", "serve"]);
