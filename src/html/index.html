@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>Hello World</title>
+        <title>Predictions</title>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="/css/styles.css">
     </head>
 
-    <body ng-app="CostToRevenue" ng-controller="MainController as Main">
+    <body ng-app="costToRevenue" ng-controller="MainController as Main">
 
         <div id="layout" class="pure-g">
 
@@ -36,7 +36,7 @@
                             <div>
                                 <label for="budget">
                                     <span>Yearly budget</span>
-                                    <input type="number" id="budget" placeholder="1000000" name="budget" ng-model="Main.form.budget" ng-change="Main.updated(Main.form)"
+                                    <input type="number" id="budget" placeholder="1000000" name="budget" ng-model="Main.form.budget" ng-change="Main.updateData(Main.form)"
                                     required class="pure-input-1" min="100000" step="100000">
                                 </label>
                             </div>
@@ -44,21 +44,21 @@
                             <div>
                                 <label for="purchase">
                                     <span>Purchases made</span>
-                                    <input type="number" id="purchase" placeholder="800" name="purchase" ng-model="Main.form.purchase" ng-change="Main.updated(Main.form)" required class="pure-input-1">
+                                    <input type="number" id="purchase" placeholder="800" name="purchase" ng-model="Main.form.purchase" ng-change="Main.updateData(Main.form)" required class="pure-input-1">
                                 </label>
                             </div>
 
                             <div>
                                 <label for="cases">
-                                    <span>Cases won</span>
-                                    <input type="number" id="cases" placeholder="50" name="cases" ng-model="Main.form.cases" ng-change="Main.updated(Main.form)" required class="pure-input-1">
+                                    <span>Cases to win</span>
+                                    <input type="number" id="cases" placeholder="50" name="cases" ng-model="Main.form.cases" ng-change="Main.updateData(Main.form)" required class="pure-input-1">
                                 </label>
                             </div>
 
                             <div>
                                 <label for="direct">
                                     <span>Direct income</span>
-                                    <input type="number" id="direct" placeholder="1300000" name="direct" ng-model="Main.form.direct" ng-change="Main.updated(Main.form)" required class="pure-input-1" step="100000">
+                                    <input type="number" id="direct" placeholder="1300000" name="direct" ng-model="Main.form.direct" ng-change="Main.updateData(Main.form)" required class="pure-input-1" step="100000">
                                 </label>
                             </div>
 
@@ -70,13 +70,129 @@
 
             </div>
 
-            <div class="content pure-u-1 pure-u-md-3-4">
+            <div class="content pure-u-1 pure-u-md-3-4 padding">
 
-                <div id="data" style="height: 500px; width: 100%; display: block;"></div>
+                <div class="pure-g">
 
-                <pie-directive ng-model="Main.form" id="pie_default" style="height: 500px; width: 100%; display: block;"></pie-directive>
+                    <div class="pure-u-1-1">
 
-                <bar-directive ng-model="Main.form" id="bar_chart" style="height: 500px; width: 100%; display: block;"></bar-directive>
+                        <ul class="tabs">
+
+                            <li class="tabs__item" ng-class="{tabs__active: Main.currentPath === '/'}">
+                                <a href="" ng-click="Main.updateCurrentPath('/', 1)">
+                                    initial
+                                </a>
+                            </li>
+
+                            <li class="tabs__item" ng-class="{tabs__active: Main.currentPath === '/tab2'}">
+                                <a href="" ng-click="Main.updateCurrentPath('/tab2', 5)">
+                                    x5
+                                </a>
+                            </li>
+
+                            <li class="tabs__item" ng-class="{tabs__active: Main.currentPath === '/tab3'}">
+                                <a href="" ng-click="Main.updateCurrentPath('/tab3', 10)">
+                                    x10
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="pure-u-1-2">
+
+                        <column-directive
+                            ng-model="Main.form" id="column_default" class="chart"
+                            ng-if="Main.currentPath === '/'"
+                            options='{
+                                    "title": "Cases in various states for each year",
+                                    "bar": { "groupWidth": "75%" },
+                                    "hAxis": {
+                                        "title": "Years"
+                                    },
+                                    "vAxis": {
+                                        "title": "Number of cases"
+                                    },
+                                    "isStacked": true
+                                }'
+                            data='[
+                                ["Year", "Cases completed", "Engaged", "Awaiting engagement"],
+                                ["2012", 8, 0, 0],
+                                ["2013", 15, 4, 5],
+                                ["2014", 0, 88, 95],
+                                ["2015", 0, 9, 260],
+                                ["2016", 0, 9, 260]
+                            ]'>
+                        </column-directive>
+
+                        <column-directive
+                            ng-model="Main.form" id="column_default2" class="chart"
+                            multiple="{{Main.multiple}}" ng-if="Main.currentPath === '/tab2'"
+                            options='{
+                                    "title": "Cases for each year",
+                                    "bar": { "groupWidth": "75%" },
+                                    "hAxis": {
+                                        "title": "Years"
+                                    },
+                                    "vAxis": {
+                                        "title": "Number of cases"
+                                    },
+                                    "isStacked": true
+                                }'
+                            data='[
+                                ["Year", "Cases completed", "Engaged", "Awaiting engagement"],
+                                ["2012", 8, 0, 0],
+                                ["2013", 15, 4, 5],
+                                ["2014", 0, 88, 95],
+                                ["2015", 0, 9, 260],
+                                ["2016", 0, 9, 260]
+                            ]'>
+                        </column-directive>
+
+                    </div>
+
+                    <div class="pure-u-1-2">
+
+                        <pie-directive ng-model="Main.form" id="pie_default" class="chart" ng-if="Main.currentPath === '/'"></pie-directive>
+
+                        <pie-directive ng-model="Main.form" id="pie_defaultX5" class="chart" multiple="{{Main.multiple}}" ng-if="Main.currentPath === '/tab2'"></pie-directive>
+
+                    </div>
+
+                    <div class="pure-u-1-1">
+
+                        <column-directive
+                            ng-model="Main.form" id="column_default2" class="chart" multiple="{{Main.multiple}}"
+                            options='{
+                                    "title": "Return on investment",
+                                    "bar": { "groupWidth": "75%" },
+                                    "hAxis": {
+                                        "title": ""
+                                    },
+                                    "vAxis": {
+                                        "title": "",
+                                        "format": "percent",
+                                        "minValue": 0,
+                                        "ticks": [0, 0.5, 1, 1.5, 2]
+                                    },
+                                    "isStacked": true
+                                }'
+                            data='[
+                                ["Year", "ROI"],
+                                ["2012", 0.5],
+                                ["2013", 0.15],
+                                ["2014", 0.19],
+                                ["2015", 1.15],
+                                ["2016", 1.85]
+                            ]'>
+                        </column-directive>
+
+                    </div>
+
+                </div>
+
+
 
             </div>
 
@@ -86,29 +202,6 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Direct income', 'Total cost'],
-          ['2013',  1400400,      1000000],
-          ['2014',  46000,      11700],
-          ['2015',  1120000,       66000],
-          ['2016',  54000,      103000]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0},
-          animation: {
-            duration: 1000,
-            easing: 'out'
-          }
-        };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('data'));
-        chart.draw(data, options);
-        }
     </script>
     <script src="js/app.js"></script>
     </body>

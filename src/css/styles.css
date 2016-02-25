@@ -52,3 +52,40 @@ h3 {
 input {
     color: black;
 }
+
+.chart {
+    width: 100%;
+    height: 500px;
+    display: block;
+}
+
+.chart__small {
+    width: 50%;
+}
+
+.hide {
+    display: none;
+}
+
+/*Tabs*/
+.tabs {
+    list-style-type: none;
+    margin: 15px 0 35px;
+    padding: 0;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.tabs__item {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #e4e4e4;
+}
+
+.tabs__active {
+    background-color: #e4e4e4;
+}
+
+.padding {
+    padding: 15px 30px;
+}
